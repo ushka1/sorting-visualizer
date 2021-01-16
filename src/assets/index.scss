@@ -1,63 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
-@import 'header.scss';
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+@import 'utils/mixins.scss';
+@import 'utils/reset.scss';
+@import 'components/button.scss';
+@import 'components/controls.scss';
+@import 'components/mobile.scss';
+@import 'components/hamburger.scss';
 
 :root {
   --c1: #b2ebf2;
   --c2: #00bcd4;
   --c3: #ff5722;
   --c4: #dd2c00;
+
+  --c1: #230c33ff;
+  --c2: #d90368ff;
+  --c3: #f7e733;
+  --c5: #f18805;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-  padding: 0;
-  border: 0;
-  margin: 0;
-  outline: 0;
-  font: inherit;
-}
-
-*:focus {
-  outline: 0;
-}
-
-html {
-  box-sizing: border-box;
-  font-size: 62.5%;
+html,
+body {
   height: 100%;
+  width: 100%;
 }
 
 body {
-  font-size: 1.6rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  line-height: 1.4;
-  background-color: var(--c1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'Audiowide', cursive;
+
   color: var(--c2);
+  background-color: var(--c1);
 
-  display: grid;
-  grid-template-rows: 10% 90%;
-  height: 100%;
-}
-
-canvas {
-  justify-self: center;
-}
-
-ol,
-ul,
-nav {
-  list-style: none;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  color: inherit;
-  background-color: transparent;
+  &.preload * {
+    transition: none;
+  }
 }

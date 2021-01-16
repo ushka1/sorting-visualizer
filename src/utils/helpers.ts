@@ -5,8 +5,3 @@ export function generateRandomNumber(min: number, max: number): number {
 export function cssVar(name: string): string {
   return getComputedStyle(document.documentElement).getPropertyValue(name);
 }
-
-export enum SORT {
-  BUBBLE = 'BUBBLE',
-  SELECTION = 'SELECTION',
-}

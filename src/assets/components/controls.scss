@@ -1,0 +1,92 @@
+header,
+footer {
+  position: fixed;
+  left: 0;
+  display: flex;
+  align-items: center;
+  height: 10%;
+  width: 100%;
+  padding: 0 5rem;
+
+  nav {
+    display: flex;
+    align-items: center;
+
+    & > li {
+      &:not(:last-child) {
+        margin-right: 2rem;
+
+        @include respond(m) {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}
+
+header {
+  top: 0;
+  z-index: 1;
+  justify-content: space-between;
+
+  h1 {
+    font-size: 3.5rem;
+  }
+
+  @include respond(m) {
+    padding: 3rem;
+
+    nav {
+      display: none;
+    }
+  }
+}
+
+footer {
+  bottom: 0;
+  justify-content: center;
+
+  @include respond(m) {
+    padding: 0;
+  }
+}
+
+.settings {
+  position: relative;
+
+  &__card {
+    color: var(--c3);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 28.4rem;
+    background-color: rgba(black, 0.75);
+    opacity: 0;
+    transform: translateY(110%);
+    pointer-events: none;
+    transition: 100ms ease-in-out;
+    padding: 3rem 0;
+
+    li {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+
+      input {
+        width: 60%;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  &:hover {
+    .settings__card {
+      opacity: 1;
+      transform: translateY(100%);
+      pointer-events: all;
+    }
+  }
+}

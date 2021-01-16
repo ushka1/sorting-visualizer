@@ -1,0 +1,22 @@
+input[type='range'] {
+  margin-top: 0.5rem;
+  -webkit-appearance: none;
+  overflow: hidden;
+  background-color: var(--c1);
+  height: 10px;
+
+  &::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 10px;
+    color: var(--c2);
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 15px;
+    cursor: ew-resize;
+    background: var(--c3);
+    box-shadow: -200px 0 0 200px var(--c3);
+  }
+}

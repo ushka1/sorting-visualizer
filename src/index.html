@@ -5,14 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sorting Visualizer</title>
   </head>
-  <body>
+  <body class="preload">
     <header>
       <h1>Sorting Visualizer</h1>
-      <nav>
+      <div id="webapp_cover" class="hamburger">
+        <div id="menu_button">
+          <input type="checkbox" id="menu_checkbox" />
+          <label for="menu_checkbox" id="menu_label">
+            <div id="menu_text_bar"></div>
+          </label>
+        </div>
+      </div>
+      <nav class="desktop">
+        <li><button id="merge">Merge Sort</button></li>
         <li><button id="bubble">Bubble Sort</button></li>
+        <li><button id="selection">Selection Sort</button></li>
+        <li><button id="insertion">Insertion Sort</button></li>
         <li><button id="generate">Generate Array</button></li>
+        <li class="settings">
+          <button>Settings</button>
+          <ul class="settings__card">
+            <li>
+              <label for="range">Numbers Range</label>
+              <input id="range" value="50" min="2" max="100" type="range" />
+            </li>
+            <li>
+              <label for="length">Array Length</label>
+              <input id="length" value="100" min="10" max="300" type="range" />
+            </li>
+            <li>
+              <label for="timeout">Sorting Speed</label>
+              <input id="timeout" value="499" min="0" max="499" type="range" />
+            </li>
+          </ul>
+        </li>
+      </nav>
+      <nav class="mobile">
+        <div>
+          <li><button id="merge">Merge Sort</button></li>
+          <li><button id="bubble">Bubble Sort</button></li>
+          <li><button id="selection">Selection Sort</button></li>
+          <li><button id="insertion">Insertion Sort</button></li>
+          <li><button id="generate">Generate Array</button></li>
+        </div>
+        <div>
+          <li>
+            <label for="range">Numbers Range</label>
+            <input id="range" value="50" min="2" max="50" type="range" />
+          </li>
+          <li>
+            <label for="length">Array Length</label>
+            <input id="length" value="100" min="10" max="150" type="range" />
+          </li>
+          <li>
+            <label for="timeout">Sorting Speed</label>
+            <input id="timeout" value="500" min="1" max="500" type="range" />
+          </li>
+        </div>
       </nav>
     </header>
     <canvas></canvas>
+    <footer>
+      <nav>
+        <li><button id="backward">Step Backward</button></li>
+        <li><button id="play">Play/Pause</button></li>
+        <li><button id="forward">Step Forward</button></li>
+      </nav>
+    </footer>
   </body>
 </html>

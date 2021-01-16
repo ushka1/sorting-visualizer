@@ -1,8 +1,13 @@
 import { cssVar } from 'utils/helpers';
 
-class Canvas {
+export interface ICanvas {
+  setArray: (arr: number[]) => void;
+  setActiveElement: (idx: number) => void;
+}
+
+export class Canvas implements ICanvas {
   private arr: number[] = [];
-  private gap = 10;
+  private gap = 2;
   private uWidth = 0;
   private uHeight = 0;
 
@@ -12,18 +17,12 @@ class Canvas {
   private color = cssVar('--c2');
   private colorActive = cssVar('--c3');
 
-  setArray = (newArr: number[]) => {
-    const { canvas, gap } = this;
-
+  setArray = (newArr: number[]): void => {
     this.arr = newArr;
-    this.uWidth = (canvas.width - gap * (newArr.length - 1)) / newArr.length;
-    this.uHeight = canvas.height / [...newArr].sort((a, b) => b - a)[0];
-
-    this.clear();
-    this.renderArray();
+    this.resizeHandler();
   };
 
-  setActiveElement = (idx: number) => {
+  setActiveElement = (idx: number): void => {
     const { arr, colorActive, ctx, renderElement } = this;
     const num = arr[idx];
 
@@ -38,11 +37,11 @@ class Canvas {
     const ctx = canvas?.getContext('2d');
 
     if (canvas && ctx) {
-      canvas.width = window.innerWidth * 0.8;
-      canvas.height = window.innerHeight * 0.8;
-
       this.canvas = canvas;
       this.ctx = ctx;
+
+      this.resizeHandler();
+      window.addEventListener('resize', this.resizeHandler);
     } else {
       throw new Error('Canvas error');
     }
@@ -70,6 +69,17 @@ class Canvas {
     const { ctx, canvas } = this;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
-}
 
-export default new Canvas();
+  private resizeHandler = () => {
+    const { canvas, gap, arr } = this;
+
+    canvas.width = window.innerWidth * 0.8;
+    canvas.height = window.innerHeight * 0.8;
+
+    this.uWidth = (canvas.width - gap * (arr.length - 1)) / arr.length;
+    this.uHeight = canvas.height / Math.max(...arr);
+
+    this.clear();
+    this.renderArray();
+  };
+}
