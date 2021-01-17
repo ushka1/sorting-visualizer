@@ -88,7 +88,7 @@ export class Canvas implements ICanvas {
     canvas.width = window.innerWidth * 0.8;
     canvas.height = window.innerHeight * 0.8;
 
-    if (typeof first === 'boolean' && first) {
+    if (first) {
       this.uWidth = (canvas.width - gap * (arr.length - 1)) / arr.length;
       this.uHeight = canvas.height / Math.max(...arr);
     }
