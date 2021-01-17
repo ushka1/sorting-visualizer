@@ -4,30 +4,34 @@ export const insertionSort: Algorithm = (arr) => {
   const queue: QueueElement[] = [];
 
   for (let i = 1; i < arr.length; i++) {
-    const cur = arr[i];
-    let idx = i - 1;
+    for (let j = i; j > 0; j--) {
+      const cur = arr[j];
+      const prev = arr[j - 1];
 
-    while (idx > -1 && cur < arr[idx]) {
       queue.push({
         arr: [...arr],
-        active: [idx + 1, idx],
+        compare: [j, j - 1],
       });
 
-      arr[idx + 1] = arr[idx];
-      idx--;
+      if (cur < prev) {
+        queue.push({
+          arr: [...arr],
+          swap: [j, j - 1],
+        });
+
+        arr[j - 1] = cur;
+        arr[j] = prev;
+
+        queue.push({
+          arr: [...arr],
+          swap: [j, j - 1],
+        });
+      }
+
+      if (cur >= prev) {
+        break;
+      }
     }
-
-    queue.push({
-      arr: [...arr],
-      active: [idx + 1, idx],
-    });
-
-    arr[idx + 1] = cur;
-
-    queue.push({
-      arr: [...arr],
-      active: [idx + 1, idx],
-    });
   }
 
   return queue;

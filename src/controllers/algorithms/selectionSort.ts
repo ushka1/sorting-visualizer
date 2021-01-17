@@ -13,14 +13,14 @@ export const selectionSort: Algorithm = (arr) => {
 
       queue.push({
         arr: [...arr],
-        active: [i, j],
+        compare: [i, j],
       });
     }
 
     if (min !== i) {
       queue.push({
         arr: [...arr],
-        active: [i, min],
+        swap: [i, min],
       });
 
       const stored = arr[i];
@@ -29,7 +29,7 @@ export const selectionSort: Algorithm = (arr) => {
 
       queue.push({
         arr: [...arr],
-        active: [i, min],
+        swap: [i, min],
       });
     }
   }

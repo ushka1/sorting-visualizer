@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Main, IMain, SORT } from 'controllers/Main';
+import { Main, IMain, SORT, ARRAY_TYPE } from 'controllers/Main';
 
 class Controls {
   mainRef: IMain;
@@ -65,11 +65,23 @@ class Controls {
     this.mainRef.setTimeout(val);
   };
 
+  setArrayTypeHandler = (type: ARRAY_TYPE, e: Event) => {
+    const target = e.target as HTMLInputElement;
+
+    document
+      .querySelectorAll('.array_type button')
+      .forEach((elm) => elm.classList.remove('active_array'));
+
+    target.classList.add('active_array');
+    this.mainRef.setArrayType(type);
+  };
+
   buttons: {
     id: string;
     ref?: (HTMLButtonElement | HTMLInputElement)[];
     handler?: any;
   }[] = [
+    // ************************* SORT TYPE ************************* //
     {
       id: 'merge',
       handler: this.setActiveSortHandler.bind(null, SORT.MERGE),
@@ -90,6 +102,7 @@ class Controls {
       id: 'generate',
       handler: this.generateHandler,
     },
+    // ************************* CONTROLS ************************* //
     {
       id: 'play',
       handler: this.togglePlayingStateHandler,
@@ -102,6 +115,7 @@ class Controls {
       id: 'backward',
       handler: this.stepBackwardHandler,
     },
+    // ************************* SETTINGS ************************* //
     {
       id: 'length',
       handler: this.setArrayLengthHandler,
@@ -113,6 +127,23 @@ class Controls {
     {
       id: 'timeout',
       handler: this.setTimeoutHandler,
+    },
+    // ************************* ARRAY TYPE ************************* //
+    {
+      id: 'array__type--normal',
+      handler: this.setArrayTypeHandler.bind(null, ARRAY_TYPE.NORMAL),
+    },
+    {
+      id: 'array__type--almost-sorted',
+      handler: this.setArrayTypeHandler.bind(null, ARRAY_TYPE.ALMOST_SORTED),
+    },
+    {
+      id: 'array__type--few-unique',
+      handler: this.setArrayTypeHandler.bind(null, ARRAY_TYPE.FEW_UNIQUE),
+    },
+    {
+      id: 'array__type--reversed',
+      handler: this.setArrayTypeHandler.bind(null, ARRAY_TYPE.REVERSED),
     },
   ];
 

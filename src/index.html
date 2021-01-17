@@ -23,7 +23,7 @@
         <li><button id="insertion">Insertion Sort</button></li>
         <li><button id="generate">Generate Array</button></li>
         <li class="settings">
-          <button>Settings</button>
+          <button id="settings">Settings</button>
           <ul class="settings__card">
             <li>
               <label for="range">Numbers Range</label>
@@ -36,6 +36,17 @@
             <li>
               <label for="timeout">Sorting Speed</label>
               <input id="timeout" value="499" min="0" max="499" type="range" />
+            </li>
+            <li class="array_type">
+              <label for="timeout">Array Type</label>
+              <div>
+                <button id="array__type--normal" class="active_array">
+                  Normal
+                </button>
+                <button id="array__type--almost-sorted">Almost Sorted</button>
+                <button id="array__type--few-unique">Few Unique</button>
+                <button id="array__type--reversed">Reversed</button>
+              </div>
             </li>
           </ul>
         </li>
@@ -60,6 +71,17 @@
           <li>
             <label for="timeout">Sorting Speed</label>
             <input id="timeout" value="500" min="1" max="500" type="range" />
+          </li>
+          <li class="array_type">
+            <label>Array Type</label>
+            <div>
+              <button id="array__type--normal" class="active_array">
+                Normal
+              </button>
+              <button id="array__type--almost-sorted">Almost Sorted</button>
+              <button id="array__type--few-unique">Few Unique</button>
+              <button id="array__type--reversed">Reversed</button>
+            </div>
           </li>
         </div>
       </nav>

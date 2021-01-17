@@ -1,8 +1,9 @@
 import { cssVar } from 'utils/helpers';
 
 export interface ICanvas {
-  setArray: (arr: number[]) => void;
-  setActiveElement: (idx: number) => void;
+  setArray: (arr: number[], first?: boolean) => void;
+  setSwapElement: (idx: number) => void;
+  setCompareElement: (idx: number) => void;
 }
 
 export class Canvas implements ICanvas {
@@ -15,19 +16,30 @@ export class Canvas implements ICanvas {
   private ctx: CanvasRenderingContext2D;
 
   private color = cssVar('--c2');
-  private colorActive = cssVar('--c3');
+  private colorCompare = cssVar('--c3');
+  private colorSwap = cssVar('--c4');
 
-  setArray = (newArr: number[]): void => {
+  setArray = (newArr: number[], first?: boolean): void => {
     this.arr = newArr;
-    this.resizeHandler();
+    this.resizeHandler(first);
   };
 
-  setActiveElement = (idx: number): void => {
-    const { arr, colorActive, ctx, renderElement } = this;
+  setSwapElement = (idx: number): void => {
+    const { arr, colorSwap, ctx, renderElement } = this;
     const num = arr[idx];
 
     if (num !== undefined) {
-      ctx.fillStyle = colorActive;
+      ctx.fillStyle = colorSwap;
+      renderElement(num, idx);
+    }
+  };
+
+  setCompareElement = (idx: number): void => {
+    const { arr, colorCompare, ctx, renderElement } = this;
+    const num = arr[idx];
+
+    if (num !== undefined) {
+      ctx.fillStyle = colorCompare;
       renderElement(num, idx);
     }
   };
@@ -70,14 +82,16 @@ export class Canvas implements ICanvas {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
-  private resizeHandler = () => {
+  private resizeHandler = (first?: boolean | Event) => {
     const { canvas, gap, arr } = this;
 
     canvas.width = window.innerWidth * 0.8;
     canvas.height = window.innerHeight * 0.8;
 
-    this.uWidth = (canvas.width - gap * (arr.length - 1)) / arr.length;
-    this.uHeight = canvas.height / Math.max(...arr);
+    if (typeof first === 'boolean' && first) {
+      this.uWidth = (canvas.width - gap * (arr.length - 1)) / arr.length;
+      this.uHeight = canvas.height / Math.max(...arr);
+    }
 
     this.clear();
     this.renderArray();

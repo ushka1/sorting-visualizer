@@ -1,6 +1,10 @@
 import { IMain } from 'controllers/Main';
 
-export type QueueElement = { arr: number[]; active: number[] };
+export type QueueElement = {
+  arr: number[];
+  swap?: number[];
+  compare?: number[];
+};
 export type Algorithm = (arr: number[]) => QueueElement[];
 
 export interface ISortQueue {
@@ -29,9 +33,9 @@ export class SortQueue implements ISortQueue {
   ) {
     this.mainRef = mainRef;
 
-    this.queue.push({ arr, active: [] });
+    this.queue.push({ arr, swap: [] });
     this.queue.push(...algorithm([...arr]));
-    this.queue.push({ arr: this.queue[this.queue.length - 1].arr, active: [] });
+    this.queue.push({ arr: this.queue[this.queue.length - 1].arr, swap: [] });
 
     if (timeout) {
       this.timeout = timeout;

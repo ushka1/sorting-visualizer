@@ -12,17 +12,22 @@ export const bubbleSort: Algorithm = (arr) => {
 
       queue.push({
         arr: [...arr],
-        active: [j, j + 1],
+        compare: [j, j + 1],
       });
 
       if (left > right) {
+        queue.push({
+          arr: [...arr],
+          swap: [j, j + 1],
+        });
+
         arr[j] = right;
         arr[j + 1] = left;
         swapped = true;
 
         queue.push({
           arr: [...arr],
-          active: [j, j + 1],
+          swap: [j, j + 1],
         });
       }
     }

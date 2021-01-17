@@ -5,7 +5,9 @@ export const mergeSort: Algorithm = (arr) => {
   let currentArr = [...arr];
 
   function inner(arr: number[], idx: number): number[] {
-    if (arr.length <= 1) return arr;
+    if (arr.length <= 1) {
+      return arr;
+    }
 
     const newArr: number[] = [];
     const pivot = Math.floor(arr.length / 2);
@@ -22,12 +24,12 @@ export const mergeSort: Algorithm = (arr) => {
       const gj = idx + pivot + j;
 
       if (left[i] < right[j]) {
-        updateCurrentArray([...left, ...right], [gi, gj], idx);
+        updateCurrentArray(idx, [...left, ...right], [gi, gj], []);
 
         newArr.push(left[i]);
         i++;
       } else if (left[i] >= right[j]) {
-        updateCurrentArray([...left, ...right], [gi, gj], idx);
+        updateCurrentArray(idx, [...left, ...right], [gi, gj], []);
 
         newArr.push(right[j]);
         j++;
@@ -35,7 +37,7 @@ export const mergeSort: Algorithm = (arr) => {
     }
 
     for (let x = 1; x <= newArr.length; x++) {
-      updateCurrentArray(newArr.slice(0, x), [curIdx], idx);
+      updateCurrentArray(idx, newArr.slice(0, x), [], [curIdx]);
       curIdx++;
     }
 
@@ -50,20 +52,26 @@ export const mergeSort: Algorithm = (arr) => {
     rest?.forEach((num) => {
       newArr.push(num);
 
-      updateCurrentArray([...newArr], [curIdx], idx);
+      updateCurrentArray(idx, [...newArr], [], [curIdx]);
       curIdx++;
     });
 
     return newArr;
   }
 
-  function updateCurrentArray(arr: number[], active: number[], idx: number) {
+  function updateCurrentArray(
+    idx: number,
+    arr: number[],
+    compare: number[],
+    swap: number[],
+  ) {
     currentArr = [...currentArr];
     currentArr.splice(idx, arr.length, ...arr);
 
     queue.push({
       arr: currentArr,
-      active,
+      compare,
+      swap,
     });
   }
 

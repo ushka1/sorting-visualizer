@@ -19,12 +19,20 @@ export enum SORT {
   MERGE = 'merge',
 }
 
+export enum ARRAY_TYPE {
+  NORMAL = 'normal',
+  ALMOST_SORTED = 'almost_sorted',
+  FEW_UNIQUE = 'few_unique',
+  REVERSED = 'reversed',
+}
+
 export interface IMain {
   activeSort: SORT;
   generateArray: () => void;
   setActiveSort: (type: SORT) => void;
   setActualQueueElement: (elm: QueueElement) => void;
   setArrayLength: (len: number) => void;
+  setArrayType: (type: ARRAY_TYPE) => void;
   setNumbersRange: (max: number) => void;
   setTimeout: (timeout: number) => void;
   stepBackward: () => void;
@@ -34,6 +42,8 @@ export interface IMain {
 
 export class Main implements IMain {
   activeSort: SORT = SORT.BUBBLE;
+  arrayType: ARRAY_TYPE = ARRAY_TYPE.NORMAL;
+
   private canvasRef: ICanvas;
   private sortQueueRef?: ISortQueue;
 
@@ -48,9 +58,9 @@ export class Main implements IMain {
     this.generateArray();
   }
 
-  private setArray = (arr: number[]): void => {
+  private setArray = (arr: number[], first?: boolean): void => {
     this.arr = arr;
-    this.canvasRef.setArray(arr);
+    this.canvasRef.setArray(arr, first);
   };
 
   setArrayLength = (len: number): void => {
@@ -60,6 +70,11 @@ export class Main implements IMain {
 
   setNumbersRange = (max: number): void => {
     this.max = max;
+    this.generateArray();
+  };
+
+  setArrayType = (type: ARRAY_TYPE): void => {
+    this.arrayType = type;
     this.generateArray();
   };
 
@@ -99,8 +114,12 @@ export class Main implements IMain {
   setActualQueueElement = (elm: QueueElement): void => {
     this.setArray(elm.arr);
 
-    elm.active.forEach((idx) => {
-      this.canvasRef.setActiveElement(idx);
+    elm.swap?.forEach((idx) => {
+      this.canvasRef.setSwapElement(idx);
+    });
+
+    elm.compare?.forEach((idx) => {
+      this.canvasRef.setCompareElement(idx);
     });
   };
 
@@ -133,14 +152,28 @@ export class Main implements IMain {
   };
 
   generateArray = (): void => {
-    const { arrLength, max, min, setArray, sortQueueRef } = this;
+    const { arrLength, max, min, setArray, sortQueueRef, arrayType } = this;
     sortQueueRef?.stop();
 
-    const arr = Array(arrLength)
+    let arr = Array(arrLength)
       .fill(null)
       .map(() => generateRandomNumber(min, max));
 
-    setArray(arr);
+    switch (arrayType) {
+      case ARRAY_TYPE.ALMOST_SORTED:
+        arr.sort((a, b) => a - b + 1);
+        break;
+
+      case ARRAY_TYPE.FEW_UNIQUE:
+        arr = arr.map((num) => (num % 4) + 1);
+        break;
+
+      case ARRAY_TYPE.REVERSED:
+        arr.sort((a, b) => b - a);
+        break;
+    }
+
+    setArray(arr, true);
     this.sortQueueSetup();
   };
 }

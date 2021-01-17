@@ -73,6 +73,7 @@ footer {
       align-items: center;
 
       input {
+        margin-top: 0.5rem;
         width: 60%;
       }
 
@@ -87,6 +88,34 @@ footer {
       opacity: 1;
       transform: translateY(100%);
       pointer-events: all;
+    }
+  }
+}
+
+.array_type {
+  div {
+    display: flex;
+    width: 90%;
+    margin-top: 1rem;
+
+    font-size: 100%;
+    font-family: monospace;
+
+    button {
+      flex: 1;
+      padding: 0.5rem;
+      background-color: transparent !important;
+      color: var(--c3) !important;
+      border-color: var(--c3) !important;
+      font-weight: bold;
+
+      &:not(:last-child) {
+        border-right-width: 1px;
+      }
+
+      &.active_array {
+        background-color: var(--c2) !important;
+      }
     }
   }
 }
