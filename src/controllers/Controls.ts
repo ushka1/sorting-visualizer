@@ -83,6 +83,10 @@ class Controls {
   }[] = [
     // ************************* SORT TYPE ************************* //
     {
+      id: 'quick',
+      handler: this.setActiveSortHandler.bind(null, SORT.QUICK),
+    },
+    {
       id: 'merge',
       handler: this.setActiveSortHandler.bind(null, SORT.MERGE),
     },

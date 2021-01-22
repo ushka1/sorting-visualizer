@@ -11,12 +11,14 @@ import { bubbleSort } from 'controllers/algorithms/bubbleSort';
 import { selectionSort } from 'controllers/algorithms/selectionSort';
 import { insertionSort } from 'controllers/algorithms/insertionSort';
 import { mergeSort } from 'controllers/algorithms/mergeSort';
+import { quickSort } from 'controllers/algorithms/quickSort';
 
 export enum SORT {
+  QUICK = 'quick',
+  MERGE = 'merge',
   BUBBLE = 'bubble',
   SELECTION = 'selection',
   INSERTION = 'insertion',
-  MERGE = 'merge',
 }
 
 export enum ARRAY_TYPE {
@@ -41,7 +43,7 @@ export interface IMain {
 }
 
 export class Main implements IMain {
-  activeSort: SORT = SORT.BUBBLE;
+  activeSort: SORT = SORT.QUICK;
   arrayType: ARRAY_TYPE = ARRAY_TYPE.NORMAL;
 
   private canvasRef: ICanvas;
@@ -87,6 +89,10 @@ export class Main implements IMain {
     let algorithm: Algorithm;
 
     switch (activeSort) {
+      case SORT.QUICK:
+        algorithm = quickSort;
+        break;
+
       case SORT.MERGE:
         algorithm = mergeSort;
         break;
@@ -114,12 +120,12 @@ export class Main implements IMain {
   setActualQueueElement = (elm: QueueElement): void => {
     this.setArray(elm.arr);
 
-    elm.swap?.forEach((idx) => {
-      this.canvasRef.setSwapElement(idx);
-    });
-
     elm.compare?.forEach((idx) => {
       this.canvasRef.setCompareElement(idx);
+    });
+
+    elm.swap?.forEach((idx) => {
+      this.canvasRef.setSwapElement(idx);
     });
   };
 
