@@ -15,11 +15,7 @@
 
 html {
   box-sizing: border-box;
-  font-size: 62.5%;
-
-  @include respond(xl) {
-    font-size: 72.5%;
-  }
+  font-size: 72.5%;
 
   @include respond(l) {
     font-size: 67.5%;
