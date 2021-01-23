@@ -9,10 +9,31 @@ export const quickSort: Algorithm = (arr) => {
   const currentArr = [...arr];
 
   function inner(arr: number[], start = 0, end = arr.length): number[] | void {
-    if (end - start <= 1) return;
+    // if (end - start <= 1) return;
 
-    const pivot = arr[start];
+    // const pivot = arr[start];
+    // let swapIdx = start;
+
+    const arrLength = end - start;
+    if (arrLength <= 1) return;
+
+    const pivotIdx = Math.floor(start + arrLength / 2);
+    const pivot = arr[pivotIdx];
+
+    queue.push({
+      arr: [...arr],
+      swap: [start, pivotIdx],
+    });
+
+    swap(arr, start, pivotIdx);
     let swapIdx = start;
+
+    queue.push({
+      arr: [...arr],
+      swap: [start, pivotIdx],
+    });
+
+    //--
 
     for (let i = start + 1; i < end; i++) {
       const cur = arr[i];
