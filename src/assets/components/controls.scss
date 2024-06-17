@@ -49,10 +49,7 @@ header {
 footer {
   bottom: 0;
   justify-content: center;
-
-  @include respond(m) {
-    padding: 0;
-  }
+  padding: 1rem;
 }
 
 .settings {
@@ -63,13 +60,12 @@ footer {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 28.4rem;
     background-color: rgba(black, 0.75);
     opacity: 0;
     transform: translateY(110%);
     pointer-events: none;
     transition: 100ms ease-in-out;
-    padding: 3rem 0;
+    padding: 3rem;
 
     li {
       display: flex;
@@ -78,7 +74,7 @@ footer {
 
       input {
         margin-top: 0.5rem;
-        width: 60%;
+        width: 100%;
       }
 
       &:not(:last-child) {
@@ -99,15 +95,14 @@ footer {
 .array_type {
   div {
     display: flex;
-    width: 90%;
     margin-top: 1rem;
-
     font-size: 100%;
     font-family: monospace;
 
     button {
       flex: 1;
-      padding: 0.5rem;
+      font-size: 80%;
+      padding: 1rem;
       background-color: transparent !important;
       color: var(--c3) !important;
       border-color: var(--c3) !important;

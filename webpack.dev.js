@@ -18,7 +18,7 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
     overlay: true,
-    port: 3000,
+    port: 3333,
     stats: 'errors-warnings',
     clientLogLevel: 'silent',
     historyApiFallback: true,
